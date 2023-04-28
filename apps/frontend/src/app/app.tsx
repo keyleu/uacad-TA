@@ -1,9 +1,11 @@
 import styled from 'styled-components';
+import '../styles/global.css'
 
-import { Route, Routes, Link } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
+import Header from '../components/header';
+import Dashboard from '../components/dashboard';
 
 const Wrapper = styled.div`
-
 `;
 
 export function App() {
@@ -14,16 +16,8 @@ export function App() {
           path="/"
           element={
             <div>
-              This is the generated root route.{' '}
-              <Link to="/page-2">Click here for page 2.</Link>
-            </div>
-          }
-        />
-        <Route
-          path="/page-2"
-          element={
-            <div>
-              <Link to="/">Click here to go back to root page.</Link>
+              <Header></Header>
+              <Dashboard></Dashboard>
             </div>
           }
         />
