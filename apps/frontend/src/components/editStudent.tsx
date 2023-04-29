@@ -7,6 +7,7 @@ import { SlUser } from 'react-icons/sl';
 import { CiMail } from 'react-icons/ci';
 import { CiMobile3 } from 'react-icons/ci';
 import { CiCalendar } from 'react-icons/ci';
+import Courses from './courses';
 
 const StyledModal = Modal.styled`
   width: 480px;
@@ -18,7 +19,7 @@ const StyledModal = Modal.styled`
 
 const MainContainer = styled.div`
   display: flex;
-  justify-content: space-around;
+  justify-content: flex-start;
   padding-top: 15px;
   padding-left: 25px;
   padding-right: 25px;
@@ -132,7 +133,7 @@ function EditStudent(props: {
           </TabList>
           <TabPanel>
             <StudentImageContainer>
-              <StudentImage src={props.student.avatar} alt="new" />
+              <StudentImage src={props.student.avatar} alt="/" />
             </StudentImageContainer>
             <NameSection>
               <SlUser size={'19px'} />
@@ -179,10 +180,10 @@ function EditStudent(props: {
             </DescriptionSection>
           </TabPanel>
           <TabPanel>
-            <h2>Any content 2</h2>
+            <Courses courses={props.student.courses}/>
           </TabPanel>
         </Tabs>
-        <Button>Editar estudiante</Button>
+        {tabIndex === 0 && <Button>Editar estudiante</Button>}
       </MainContainer>
       <FooterContainer>
         <CloseButton onClick={props.toggleModal}>Cerrar</CloseButton>
