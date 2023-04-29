@@ -3,7 +3,8 @@ import { BsGraphUp } from 'react-icons/bs';
 import { AiOutlinePlusCircle } from 'react-icons/ai';
 import { useEffect, useState } from 'react';
 import DashboardRows from './dashboardrows';
-import EditStudent from './editStudent';
+import Student from './student';
+import NewStudent from './newstudent';
 
 const Navbar1 = styled.div`
   padding-left: 40px;
@@ -23,6 +24,7 @@ const Text = styled.text`
   font-weight: 400;
 `;
 const Button = styled.button`
+  cursor: pointer;
   display: flex;
   background: #0abb87;
   border: 1px solid #0abb87;
@@ -53,14 +55,32 @@ const TableHeader = styled.th`
 
 const TableRow = styled.tr`
   height: 40px;
-  border-bottom: 2px solid #262D34;
+  border-bottom: 2px solid #262d34;
 `;
 
 function Dashboard() {
-  const [idOpen, setIdOpen] = useState("");
-  const [student, setStudent] = useState({} as { _id: string; isOnline: boolean; name: string; avatar: string; lastName: string; username: string; email: string; phone: string; inscriptionDate: string; courses: { _id: string; title: string; percentCompleted: number; inscriptionDate: string; }[]; });
-  const globalPrefix = 'api';
-  const port = process.env['PORT'] || 3333;
+  const [idOpen, setIdOpen] = useState('');
+  const [isOpenNewStudent, setIsOpenNewStudent] = useState(false);
+  const [student, setStudent] = useState(
+    {} as {
+      _id: string;
+      isOnline: boolean;
+      name: string;
+      avatar: string;
+      lastName: string;
+      username: string;
+      email: string;
+      phone: string;
+      inscriptionDate: string;
+      courses: {
+        _id: string;
+        title: string;
+        percentCompleted: number;
+        inscriptionDate: string;
+      }[];
+    }
+  );
+
   const [jsonData, setJsonData] = useState(
     [] as {
       _id: string;
@@ -87,25 +107,35 @@ function Dashboard() {
   }, []);
 
   const getStudents = async () => {
-    const response = await fetch(`http://localhost:${port}/${globalPrefix}`);
+    const response = await fetch(`http://localhost:3333/api`);
     const json = await response.json(); //extract JSON from the http response
     // do something with myJson
-    setJsonData(json[0]);
+    setJsonData(json);
   };
 
   function toggleModal() {
-    setIdOpen("")
+    setIdOpen('');
   }
-  
+
+  function toggleEditNewStudentModal(){
+    setIsOpenNewStudent(prevIsOpen => !prevIsOpen)
+  }
+
   return (
     <>
-      <EditStudent idOpen={idOpen} toggleModal={toggleModal} student={student}/>
+      <NewStudent isNewStudentOpen={isOpenNewStudent} toggleEditNewStudentModal={toggleEditNewStudentModal} setJsonData={setJsonData}/>
+      <Student
+        idOpen={idOpen}
+        toggleModal={toggleModal}
+        student={student}
+        setJsonData={setJsonData}
+      />
       <Navbar1>
         <DashboardIcon>
           <BsGraphUp size={'21px'} />
           <Text style={{ fontSize: '15px' }}>Dashboard</Text>
         </DashboardIcon>
-        <Button>
+        <Button onClick={toggleEditNewStudentModal}>
           <AiOutlinePlusCircle size={'19px'} />
           <Text style={{ fontSize: '13px', paddingTop: '2.5px' }}>
             Nuevo estudiante
@@ -126,7 +156,11 @@ function Dashboard() {
             <TableHeader style={{ width: '25%' }}>Móvil</TableHeader>
           </TableRow>
           {Object.keys(jsonData).length !== 0 && (
-            <DashboardRows setStudent={setStudent} setId={setIdOpen} students={jsonData} />
+            <DashboardRows
+              setStudent={setStudent}
+              setId={setIdOpen}
+              students={jsonData}
+            />
           )}
         </Table>
       </TableContainer>

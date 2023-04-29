@@ -43,10 +43,13 @@ function Courses(props: {
       inscriptionDate: string;
     }) => {
       return (
-        <div style={{marginBottom: "25px"}} key={uuidv4()}>
+        <div style={{ marginBottom: '25px' }} key={uuidv4()}>
           <HeaderText>{course.title}</HeaderText>
           <BarContainer>
-            <ProgressBar bgcolor='linear-gradient(90deg, #0ABB87 6.77%, #6FD466 93.23%)' completed={course.percentCompleted}></ProgressBar>
+            <ProgressBar
+              bgcolor="linear-gradient(90deg, #0ABB87 6.77%, #6FD466 93.23%)"
+              completed={course.percentCompleted}
+            ></ProgressBar>
             <HeaderText>{course.percentCompleted}%</HeaderText>
           </BarContainer>
           <DateText>Fecha de inscripción: {course.inscriptionDate}</DateText>

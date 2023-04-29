@@ -115,10 +115,11 @@ function DashboardRows(props: {
               {student.phone}
               <div
                 onClick={() => {
-                  props.setId(student._id); props.setStudent(student);
+                  props.setId(student._id);
+                  props.setStudent(student);
                 }}
               >
-                <SlInfo cursor={"pointer"} size={'24px'}></SlInfo>
+                <SlInfo cursor={'pointer'} size={'24px'}></SlInfo>
               </div>
             </PhoneField>
           </TableField>

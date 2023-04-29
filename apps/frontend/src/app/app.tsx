@@ -16,9 +16,9 @@ export function App() {
           path="/"
           element={
             <div>
-              <Header></Header>
+              <Header />
               <ModalProvider>
-                <Dashboard></Dashboard>
+                <Dashboard />
               </ModalProvider>
             </div>
           }

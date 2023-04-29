@@ -16,8 +16,7 @@ const ProgressBar = (props: { bgcolor: string; completed: number }) => {
 
   return (
     <div style={containerStyles}>
-      <div style={fillerStyles}>
-      </div>
+      <div style={fillerStyles}></div>
     </div>
   );
 };
