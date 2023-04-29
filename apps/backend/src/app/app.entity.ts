@@ -7,7 +7,7 @@ export class Student {
     username: string
     email: string
     phone: string
-    inscriptionDate: Date
+    inscriptionDate: string
     courses: Array<Course>
 }
 
@@ -15,5 +15,5 @@ class Course{
     _id: string
     title: string
     percentCompleted: number
-    inscriptionDate: Date
+    inscriptionDate: string
 }

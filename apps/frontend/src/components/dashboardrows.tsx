@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 import { v4 as uuidv4 } from 'uuid';
+import { SlInfo } from 'react-icons/sl';
+import React from 'react';
 
 const TableField = styled.td`
   font-family: 'Montserrat';
@@ -29,6 +31,13 @@ const TextBox = styled.div`
   border-radius: 5px;
 `;
 
+const PhoneField = styled.div`
+  display: flex;
+  gap: 50px;
+  align-items: center;
+  justify-content: flex-start;
+`;
+
 function DashboardRows(props: {
   students: {
     _id: string;
@@ -39,14 +48,32 @@ function DashboardRows(props: {
     username: string;
     email: string;
     phone: string;
-    inscriptionDate: Date;
+    inscriptionDate: string;
     courses: {
       _id: string;
       title: string;
       percentCompleted: number;
-      inscriptionDate: Date;
+      inscriptionDate: string;
     }[];
   }[];
+  setId: (arg0: string) => void;
+  setStudent: (arg0: {
+    _id: string;
+    isOnline: boolean;
+    name: string;
+    avatar: string;
+    lastName: string;
+    username: string;
+    email: string;
+    phone: string;
+    inscriptionDate: string;
+    courses: {
+      _id: string;
+      title: string;
+      percentCompleted: number;
+      inscriptionDate: string;
+    }[];
+  }) => void;
 }) {
   const dashboardrows = props.students.map(
     (student: {
@@ -58,12 +85,12 @@ function DashboardRows(props: {
       username: string;
       email: string;
       phone: string;
-      inscriptionDate: Date;
+      inscriptionDate: string;
       courses: {
         _id: string;
         title: string;
         percentCompleted: number;
-        inscriptionDate: Date;
+        inscriptionDate: string;
       }[];
     }) => {
       return (
@@ -82,8 +109,19 @@ function DashboardRows(props: {
             {student.name} {student.lastName}
           </TableField>
           <TableField style={{ width: '20%' }}>{student.username}</TableField>
-          <TableField style={{ width: '30%' }}>{student.email}</TableField>
-          <TableField style={{ width: '20%' }}>{student.phone}</TableField>
+          <TableField style={{ width: '25%' }}>{student.email}</TableField>
+          <TableField style={{ width: '25%' }}>
+            <PhoneField>
+              {student.phone}
+              <div
+                onClick={() => {
+                  props.setId(student._id); props.setStudent(student);
+                }}
+              >
+                <SlInfo cursor={"pointer"} size={'24px'}></SlInfo>
+              </div>
+            </PhoneField>
+          </TableField>
         </TableRow>
       );
     }
@@ -92,4 +130,4 @@ function DashboardRows(props: {
   return <>{dashboardrows}</>;
 }
 
-export default DashboardRows;
+export default React.memo(DashboardRows);

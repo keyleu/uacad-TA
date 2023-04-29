@@ -3,6 +3,7 @@ import { BsGraphUp } from 'react-icons/bs';
 import { AiOutlinePlusCircle } from 'react-icons/ai';
 import { useEffect, useState } from 'react';
 import DashboardRows from './dashboardrows';
+import EditStudent from './editStudent';
 
 const Navbar1 = styled.div`
   padding-left: 40px;
@@ -56,6 +57,8 @@ const TableRow = styled.tr`
 `;
 
 function Dashboard() {
+  const [idOpen, setIdOpen] = useState("");
+  const [student, setStudent] = useState({} as { _id: string; isOnline: boolean; name: string; avatar: string; lastName: string; username: string; email: string; phone: string; inscriptionDate: string; courses: { _id: string; title: string; percentCompleted: number; inscriptionDate: string; }[]; });
   const globalPrefix = 'api';
   const port = process.env['PORT'] || 3333;
   const [jsonData, setJsonData] = useState(
@@ -68,12 +71,12 @@ function Dashboard() {
       username: string;
       email: string;
       phone: string;
-      inscriptionDate: Date;
+      inscriptionDate: string;
       courses: {
         _id: string;
         title: string;
         percentCompleted: number;
-        inscriptionDate: Date;
+        inscriptionDate: string;
       }[];
     }[]
   );
@@ -90,8 +93,13 @@ function Dashboard() {
     setJsonData(json[0]);
   };
 
+  function toggleModal() {
+    setIdOpen("")
+  }
+  
   return (
     <>
+      <EditStudent idOpen={idOpen} toggleModal={toggleModal} student={student}/>
       <Navbar1>
         <DashboardIcon>
           <BsGraphUp size={'21px'} />
@@ -114,11 +122,11 @@ function Dashboard() {
             <TableHeader style={{ width: '20%' }}>
               Nombre de usuario
             </TableHeader>
-            <TableHeader style={{ width: '30%' }}>Email</TableHeader>
-            <TableHeader style={{ width: '20%' }}>Móvil</TableHeader>
+            <TableHeader style={{ width: '25%' }}>Email</TableHeader>
+            <TableHeader style={{ width: '25%' }}>Móvil</TableHeader>
           </TableRow>
           {Object.keys(jsonData).length !== 0 && (
-            <DashboardRows students={jsonData} />
+            <DashboardRows setStudent={setStudent} setId={setIdOpen} students={jsonData} />
           )}
         </Table>
       </TableContainer>
