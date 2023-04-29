@@ -211,7 +211,9 @@ function NewStudent(props: {
       <ButtonContainer>
         <CloseButton onClick={closeNewStudent}>Cancelar</CloseButton>
         {isDisabled && (
-          <DisabledSaveButton disabled={true} onClick={handleSave}>Guardar</DisabledSaveButton>
+          <DisabledSaveButton disabled={true} onClick={handleSave}>
+            Guardar
+          </DisabledSaveButton>
         )}
         {!isDisabled && <SaveButton onClick={handleSave}>Guardar</SaveButton>}
       </ButtonContainer>

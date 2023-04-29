@@ -117,13 +117,17 @@ function Dashboard() {
     setIdOpen('');
   }
 
-  function toggleEditNewStudentModal(){
-    setIsOpenNewStudent(prevIsOpen => !prevIsOpen)
+  function toggleEditNewStudentModal() {
+    setIsOpenNewStudent((prevIsOpen) => !prevIsOpen);
   }
 
   return (
     <>
-      <NewStudent isNewStudentOpen={isOpenNewStudent} toggleEditNewStudentModal={toggleEditNewStudentModal} setJsonData={setJsonData}/>
+      <NewStudent
+        isNewStudentOpen={isOpenNewStudent}
+        toggleEditNewStudentModal={toggleEditNewStudentModal}
+        setJsonData={setJsonData}
+      />
       <Student
         idOpen={idOpen}
         toggleModal={toggleModal}

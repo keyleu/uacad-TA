@@ -12,13 +12,13 @@ export class AppController {
     return this.appService.getAllStudents();
   }
 
-  @Patch(":id")
-  updateStudent(@Param("id") id: string, @Body() newStudent: Student){
+  @Patch(':id')
+  updateStudent(@Param('id') id: string, @Body() newStudent: Student) {
     return this.appService.updateStudent(id, newStudent);
   }
 
   @Post()
-  createStudent(@Body() newStudent: Student){
+  createStudent(@Body() newStudent: Student) {
     return this.appService.createStudent(newStudent);
   }
 }

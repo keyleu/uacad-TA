@@ -16,7 +16,7 @@ export class AppService {
 
   createStudent(student: Student) {
     const json = [JSON.parse(JSON.stringify(student))];
-    this.jsonData = json.concat(this.jsonData)
+    this.jsonData = json.concat(this.jsonData);
     return this.jsonData;
   }
 
